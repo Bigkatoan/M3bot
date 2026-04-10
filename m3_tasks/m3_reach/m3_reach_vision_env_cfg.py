@@ -14,18 +14,17 @@ from isaaclab.managers import SceneEntityCfg
 from isaaclab.sensors import CameraCfg
 from isaaclab.utils import configclass
 
-import isaaclab.envs.mdp as mdp
 
 from m3_tasks.m3_robot_cfg import M3_CAMERA_CFG
 from m3_tasks.m3_reach.m3_reach_env_cfg import M3ReachEnvCfg, M3ReachSceneCfg, M3ReachObservationsCfg
-from m3_tasks.vision_utils import set_vis_markers_guide_purpose
+from m3_tasks.vision_utils import set_vis_markers_guide_purpose, image_nchw
 
 
 @configclass
 class M3ReachVisionSceneCfg(M3ReachSceneCfg):
-    """Reach scene with side camera added."""
+    """Reach scene with side camera added (128×128 RGB for CNN input)."""
 
-    side_cam: CameraCfg = M3_CAMERA_CFG.replace(prim_path="{ENV_REGEX_NS}/side_cam")
+    side_cam: CameraCfg = M3_CAMERA_CFG.replace(prim_path="{ENV_REGEX_NS}/side_cam", height=128, width=128)
 
 
 @configclass
@@ -37,13 +36,13 @@ class M3ReachVisionObservationsCfg(M3ReachObservationsCfg):
         """RGB image from side camera. concatenate_terms MUST be False for images."""
 
         rgb = ObsTerm(
-            func=mdp.image,
-            params={"sensor_cfg": SceneEntityCfg("side_cam"), "data_type": "rgb", "normalize": False},
+            func=image_nchw,
+            params={"sensor_cfg": SceneEntityCfg("side_cam"), "data_type": "rgb"},
         )
 
         def __post_init__(self):
             self.enable_corruption = False
-            self.concatenate_terms = False  # Required — images cannot be concatenated
+            self.concatenate_terms = True  # returns raw tensor (B,C,H,W) — required by RSL-RL CNNModel
 
     vision_policy: VisionPolicyCfg = VisionPolicyCfg()
 

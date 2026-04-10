@@ -26,4 +26,4 @@ from .rewards import (  # noqa: F401
     object_goal_distance,
     object_placed_at_goal,
 )
-from .terminations import object_reached_goal  # noqa: F401
+from .terminations import object_reached_goal, object_out_of_reach, object_behind_robot  # noqa: F401

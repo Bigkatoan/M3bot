@@ -25,3 +25,29 @@ def object_reached_goal(
     des_pos_w, _ = combine_frame_transforms(robot.data.root_pos_w, robot.data.root_quat_w, des_pos_b)
     distance = torch.norm(des_pos_w - object.data.root_pos_w[:, :3], dim=1)
     return distance < threshold
+
+
+def object_out_of_reach(
+    env,
+    max_reach: float = 0.19,
+    robot_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+    object_cfg: SceneEntityCfg = SceneEntityCfg("object"),
+) -> torch.Tensor:
+    """Terminate when object XY-distance from robot base exceeds arm reach (190 mm)."""
+    robot: RigidObject = env.scene[robot_cfg.name]
+    object: RigidObject = env.scene[object_cfg.name]
+    xy_dist = torch.norm(
+        object.data.root_pos_w[:, :2] - robot.data.root_pos_w[:, :2], dim=1
+    )
+    return xy_dist > max_reach
+
+
+def object_behind_robot(
+    env,
+    robot_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+    object_cfg: SceneEntityCfg = SceneEntityCfg("object"),
+) -> torch.Tensor:
+    """Terminate when object drifts behind the robot base (arm extends in world +X)."""
+    robot: RigidObject = env.scene[robot_cfg.name]
+    object: RigidObject = env.scene[object_cfg.name]
+    return object.data.root_pos_w[:, 0] <= robot.data.root_pos_w[:, 0]

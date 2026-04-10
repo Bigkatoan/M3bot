@@ -46,7 +46,7 @@ class M3PushSceneCfg(InteractiveSceneCfg):
     object = RigidObjectCfg(
         prim_path="{ENV_REGEX_NS}/Object",
         spawn=sim_utils.CuboidCfg(
-            size=(0.01, 0.01, 0.01),
+            size=(0.02, 0.02, 0.02),
             rigid_props=sim_utils.RigidBodyPropertiesCfg(
                 disable_gravity=False,
                 max_linear_velocity=2.0,
@@ -59,7 +59,7 @@ class M3PushSceneCfg(InteractiveSceneCfg):
             visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.1, 0.1, 0.8), metallic=0.2),
         ),
         init_state=RigidObjectCfg.InitialStateCfg(
-            pos=(0.3, -0.25, 0.005),
+            pos=(0.37, -0.25, 0.01),  # 120 mm in front of robot base (world +X)
             rot=(1.0, 0.0, 0.0, 0.0),
         ),
     )
@@ -88,11 +88,13 @@ class M3PushCommandsCfg:
     object_pose = UniformPoseCommandCfg(
         asset_name="robot",
         body_name=M3_EE_BODY,
-        resampling_time_range=(5.0, 5.0),
+        resampling_time_range=(12.0, 12.0),  # match episode_length_s → goal fixed for whole episode
         debug_vis=True,
         ranges=UniformPoseCommandCfg.Ranges(
-            pos_x=(-0.40, -0.10),
-            pos_y=(-0.08, 0.08),
+            # body frame; world_x = 0.25 - body_px → body_px∈(-0.18,-0.06) → world_x∈(0.31,0.43)
+            # max XY = sqrt(0.18²+0.05²) ≈ 0.187 m < 0.19 m ✓  min = 0.06 m ✓
+            pos_x=(-0.18, -0.06),
+            pos_y=(-0.05, 0.05),
             pos_z=(0.005, 0.005),  # On ground
             roll=(0.0, 0.0),
             pitch=(0.0, 0.0),
@@ -153,7 +155,8 @@ class M3PushEventsCfg:
         func=mdp.reset_root_state_uniform,
         mode="reset",
         params={
-            "pose_range": {"x": (-0.08, 0.08), "y": (-0.08, 0.08), "z": (0.0, 0.0)},
+            # world_x ∈ (0.31, 0.43) → dist ∈ (0.06, 0.18)m — all in front (+X), ≥60mm ✓
+            "pose_range": {"x": (-0.06, 0.06), "y": (-0.06, 0.06), "z": (0.0, 0.0)},
             "velocity_range": {},
             "asset_cfg": SceneEntityCfg("object", body_names="Object"),
         },
@@ -208,6 +211,15 @@ class M3PushTerminationsCfg:
     object_out_of_bounds = DoneTerm(
         func=mdp.root_height_below_minimum,
         params={"minimum_height": -0.05, "asset_cfg": SceneEntityCfg("object")},
+    )
+
+    object_out_of_reach = DoneTerm(
+        func=mdp.object_out_of_reach,
+        params={"max_reach": 0.19},
+    )
+
+    object_behind_robot = DoneTerm(
+        func=mdp.object_behind_robot,
     )
 
 

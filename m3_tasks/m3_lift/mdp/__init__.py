@@ -22,5 +22,5 @@ from isaaclab.envs.mdp.commands.commands_cfg import UniformPoseCommandCfg  # noq
 
 # Local MDP
 from .rewards import object_is_lifted, object_ee_distance, object_goal_distance  # noqa: F401
-from .terminations import object_reached_goal  # noqa: F401
+from .terminations import object_reached_goal, object_out_of_reach, object_behind_robot  # noqa: F401
 from .observations import object_position_in_robot_root_frame  # noqa: F401

@@ -18,4 +18,4 @@ from isaaclab.envs.mdp.actions.actions_cfg import JointPositionActionCfg  # noqa
 from isaaclab.envs.mdp.commands.commands_cfg import UniformPoseCommandCfg  # noqa: F401
 
 from .rewards import object_ee_distance, object_goal_xy_distance  # noqa: F401
-from .terminations import object_reached_goal_xy  # noqa: F401
+from .terminations import object_reached_goal_xy, object_out_of_reach, object_behind_robot  # noqa: F401

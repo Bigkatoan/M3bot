@@ -62,7 +62,7 @@ class M3ReachCommandsCfg:
     ee_pose = UniformPoseCommandCfg(
         asset_name="robot",
         body_name=M3_EE_BODY,
-        resampling_time_range=(4.0, 4.0),
+        resampling_time_range=(12.0, 12.0),  # match episode_length_s → goal fixed for whole episode
         debug_vis=True,
         ranges=UniformPoseCommandCfg.Ranges(
             # Robot spawned with 180° Z rotation → body +X = world -X.

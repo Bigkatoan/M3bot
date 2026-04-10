@@ -12,6 +12,25 @@ Key helper: set_vis_markers_guide_purpose
 from __future__ import annotations
 
 import torch
+import isaaclab.envs.mdp as _mdp
+from isaaclab.managers import SceneEntityCfg
+
+
+def image_nchw(
+    env,
+    sensor_cfg: SceneEntityCfg = SceneEntityCfg("side_cam"),
+    data_type: str = "rgb",
+) -> torch.Tensor:
+    """Return camera image as (B, C, H, W) float tensor in [0, 1].
+
+    IsaacLab's mdp.image returns (B, H, W, C) uint8.  RSL-RL CNNModel expects
+    (B, C, H, W) float.  This wrapper does the permute + scale in-place so the
+    observation group tensor has the correct layout for rsl_rl.modules.CNN.
+    """
+    # (B, H, W, C) uint8
+    imgs = _mdp.image(env, sensor_cfg=sensor_cfg, data_type=data_type, normalize=False)
+    # → (B, C, H, W) float [0, 1]
+    return imgs.permute(0, 3, 1, 2).float().div_(255.0)
 
 
 def set_vis_markers_guide_purpose(

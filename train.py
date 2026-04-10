@@ -144,9 +144,13 @@ except Exception:
 import m3_tasks  # registers all gym envs   # noqa: F401
 from m3_tasks.agents.rsl_rl_ppo_cfg import (
     M3LiftPPOCfg,
+    M3LiftVisionPPOCfg,
     M3PickPlacePPOCfg,
+    M3PickPlaceVisionPPOCfg,
     M3PushPPOCfg,
+    M3PushVisionPPOCfg,
     M3ReachPPOCfg,
+    M3ReachVisionPPOCfg,
 )
 from m3_tasks.m3_lift.m3_lift_env_cfg import M3LiftEnvCfg
 from m3_tasks.m3_lift.m3_lift_vision_env_cfg import M3LiftVisionEnvCfg
@@ -167,11 +171,11 @@ TASK_REGISTRY = {
     "Isaac-M3-Lift-v0":          (M3LiftEnvCfg,       M3LiftPPOCfg),
     "Isaac-M3-Push-v0":          (M3PushEnvCfg,       M3PushPPOCfg),
     "Isaac-M3-PickPlace-v0":     (M3PickPlaceEnvCfg,  M3PickPlacePPOCfg),
-    # Vision tasks share the same PPO config as the state-based counterpart
-    "Isaac-M3-Reach-Vision-v0":     (M3ReachVisionEnvCfg,     M3ReachPPOCfg),
-    "Isaac-M3-Lift-Vision-v0":      (M3LiftVisionEnvCfg,      M3LiftPPOCfg),
-    "Isaac-M3-Push-Vision-v0":      (M3PushVisionEnvCfg,      M3PushPPOCfg),
-    "Isaac-M3-PickPlace-Vision-v0": (M3PickPlaceVisionEnvCfg, M3PickPlacePPOCfg),
+    # Vision tasks use CNN actor/critic with obs_groups routing state+image
+    "Isaac-M3-Reach-Vision-v0":     (M3ReachVisionEnvCfg,     M3ReachVisionPPOCfg),
+    "Isaac-M3-Lift-Vision-v0":      (M3LiftVisionEnvCfg,      M3LiftVisionPPOCfg),
+    "Isaac-M3-Push-Vision-v0":      (M3PushVisionEnvCfg,      M3PushVisionPPOCfg),
+    "Isaac-M3-PickPlace-Vision-v0": (M3PickPlaceVisionEnvCfg, M3PickPlaceVisionPPOCfg),
 }
 
 # Minimum supported rsl-rl version
