@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot name="robot">
+  <joint name="b2_FixedJoint" type="fixed">
+    <origin xyz="-0.1500015 89.49999 14.999998 " rpy="3.1415925 0. -3.1415927"/>
+    <parent link="b2"/>
+    <child link="b1"/>
+  </joint>
+  <joint name="f2_FixedJoint" type="fixed">
+    <origin xyz="36.25 -19.882408 -15. " rpy="-3.1415927 0. 1.5707964"/>
+    <parent link="f2"/>
+    <child link="f1"/>
+  </joint>
+  <joint name="joint0" type="revolute">
+    <origin xyz="0. 0.000002 0.0000003" rpy="0. 0. 0."/>
+    <parent link="mb1"/>
+    <child link="b2"/>
+    <axis xyz="0. 1. 0."/>
+    <limit lower="-1.5707963" upper="1.5707963" effort="10000000." velocity="0."/>
+  </joint>
+  <joint name="joint1" type="revolute">
+    <origin xyz="0. -0.0000044 40. " rpy="0. 0. 0."/>
+    <parent link="b1"/>
+    <child link="m1"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-1.5707963" upper="1.5707963" effort="10000000." velocity="0."/>
+  </joint>
+  <joint name="joint2" type="revolute">
+    <origin xyz="-0.0324102 90.00001 0.0000018" rpy="0. -0. 1.5707964"/>
+    <parent link="m1"/>
+    <child link="f2"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-1.5707963" upper="1.5707963" effort="10000000." velocity="0."/>
+  </joint>
+  <joint name="joint3" type="revolute">
+    <origin xyz="37.5 -82.38241 -21.122341" rpy="0. 0. 1.5707964"/>
+    <parent link="f2"/>
+    <child link="g1"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-1.5707963" upper="1.5707963" effort="10000000." velocity="0."/>
+  </joint>
+  <joint name="left_finger" type="prismatic">
+    <origin xyz="0.0000024 0. -0.0000006" rpy="0. 0. 0."/>
+    <parent link="g1"/>
+    <child link="g3"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="0." upper="10." effort="10000000." velocity="0."/>
+  </joint>
+  <joint name="m2_FixedJoint" type="fixed">
+    <origin xyz="-0.0324097 90.00001 -19.999998 " rpy="0. -0. 1.5707964"/>
+    <parent link="m1"/>
+    <child link="m2"/>
+  </joint>
+  <joint name="right_finger" type="prismatic">
+    <origin xyz="0.0000006 -0.0000002 -0.0000003" rpy="0. 0. 0."/>
+    <parent link="g1"/>
+    <child link="g4"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-10." upper="0." effort="0." velocity="0."/>
+  </joint>
+  <joint name="root_joint" type="fixed">
+    <origin xyz="-0.2 2.5 -13. " rpy="1.5707964 0. 3.1415927"/>
+    <parent link="robot"/>
+    <child link="mb1"/>
+  </joint>
+  <link name="b1">
+    <visual>
+      <origin xyz="190. -0.0000043 200. " rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/b1_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="190. -0.0000043 200. " rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/b1_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="b2">
+    <visual>
+      <origin xyz="-190.15 89.5 -185. " rpy="3.1415927 0. -3.1415927"/>
+      <geometry>
+        <mesh filename="meshes/b2_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-190.15 89.5 -185. " rpy="3.1415927 0. -3.1415927"/>
+      <geometry>
+        <mesh filename="meshes/b2_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="f1">
+    <visual>
+      <origin xyz="120. -35.000004 190. " rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/f1_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="120. -35.000004 190. " rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/f1_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="f2">
+    <visual>
+      <origin xyz="1.2499962 100.11759 -205. " rpy="3.1415927 0. 1.5707964"/>
+      <geometry>
+        <mesh filename="meshes/f2_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="1.2499962 100.11759 -205. " rpy="3.1415927 0. 1.5707964"/>
+      <geometry>
+        <mesh filename="meshes/f2_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="g1">
+    <visual>
+      <origin xyz="182.5 -34.999992 180. " rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/g1_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="182.5 -34.999992 180. " rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/g1_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="g3">
+    <visual>
+      <origin xyz="179.91591 -35.000114 188.52669 " rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/g3_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="179.91591 -35.000114 188.52669 " rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/g3_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="g4">
+    <visual>
+      <origin xyz="179.72572 -34.679237 171.19058 " rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/g4_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="179.72572 -34.679237 171.19058 " rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/g4_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="m1">
+    <visual>
+      <origin xyz="-0.0324071 190. 160. " rpy="0. -0. 1.5707964"/>
+      <geometry>
+        <mesh filename="meshes/m1_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.0324071 190. 160. " rpy="0. -0. 1.5707964"/>
+      <geometry>
+        <mesh filename="meshes/m1_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="m2">
+    <visual>
+      <origin xyz="99.99999 -0.0000026 180. " rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/m2_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="99.99999 -0.0000026 180. " rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/m2_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="mb1">
+    <visual>
+      <origin xyz="190. 90. 180." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/mb1_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="190. 90. 180." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/mb1_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="robot"/>
+</robot>

@@ -1,0 +1,72 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage
+htmlcov/
+.coverage
+.coverage.*
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+venv.bak/
+ENV/
+
+# Environment variables
+.env
+.env.*
+
+# VS Code
+.vscode/
+
+# IDEs
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Compiled extensions
+*.so
+
+# Build artifacts
+*.egg
+*.whl
+
+# Misc
+*.swp
+*~
+
+# Python packaging
+.Python
+
+# Type checkers
+.mypy_cache/
+
+# Local caches
+.cache/
+
+# Optional: ignore local model/checkpoint dirs (uncomment if used)
+# checkpoints/
+# models/
