@@ -70,4 +70,4 @@ logs/
 # Optional: ignore local model/checkpoint dirs (uncomment if used)
 # checkpoints/
 # models/
- references/
+reference/
