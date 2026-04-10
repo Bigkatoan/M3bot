@@ -4,11 +4,11 @@
 
 | Thành phần | Yêu cầu |
 |---|---|
-| **Isaac Sim** | 4.5+ (NVIDIA Omniverse) |
+| **Isaac Sim** |  5.1.0 |
 | **IsaacLab** | v2.3.2+ (thư mục `IsaacLab/`) |
 | **rsl-rl-lib** | >= 3.0.1 |
 | **Python** | 3.10 (đi kèm Isaac Sim) |
-| **GPU** | NVIDIA RTX (CUDA, driver >= 535) |
+| **GPU** | NVIDIA RTX (CUDA, driver >= 535, Test on 3060 12gb) |
 
 ---
 
